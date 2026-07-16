@@ -129,11 +129,40 @@
   .mbtn{flex:1;padding:9px;border-radius:var(--radius);border:none;font-size:13px;font-family:system-ui,sans-serif;cursor:pointer;font-weight:600;}
   .mbtn.pri{background:var(--accent);color:#fff;}
   .mbtn.sec{background:var(--surface2);color:var(--text2);border:1px solid var(--border);}
+  #guide-modal .mbox{max-width:560px;max-height:80vh;overflow-y:auto;}
+  .guide-section{margin-bottom:18px;}
+  .guide-section h3{font-size:13px;color:var(--accent);margin-bottom:8px;font-family:system-ui,sans-serif;}
+  .guide-row{display:flex;gap:10px;padding:6px 0;font-size:12.5px;font-family:system-ui,sans-serif;color:var(--text2);border-bottom:1px solid var(--border);}
+  .guide-row:last-child{border-bottom:none;}
+  .guide-row b{color:var(--text);min-width:110px;flex-shrink:0;}
+
+  #float-restore{position:fixed;bottom:16px;right:16px;width:40px;height:40px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);z-index:1500;transition:all .15s;}
+  #float-restore:hover{background:var(--accent-light);color:var(--accent);border-color:var(--accent);}
+  #float-restore svg{width:18px;height:18px;}
+  #float-restore-panel{position:fixed;bottom:64px;right:16px;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;width:240px;z-index:1500;font-family:system-ui,sans-serif;}
+  #float-restore-panel.hide{display:none;}
+  #float-restore-panel h4{font-size:12px;color:var(--text);margin-bottom:6px;}
+  #float-restore-panel p{font-size:11px;color:var(--text3);margin-bottom:10px;line-height:1.5;}
+  #float-restore-panel .mrow{display:flex;gap:6px;}
+  #float-restore-panel button{flex:1;font-size:11px;padding:6px;border-radius:4px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;}
+  #float-restore-panel button.pri{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600;}
+
+  #tour-overlay{position:fixed;inset:0;z-index:3000;pointer-events:none;}
+  #tour-overlay.hide{display:none;}
+  #tour-highlight{position:fixed;border:2px solid var(--accent);border-radius:8px;box-shadow:0 0 0 4000px rgba(0,0,0,.55);pointer-events:none;transition:all .2s;}
+  #tour-box{position:fixed;width:280px;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;pointer-events:all;font-family:system-ui,sans-serif;transition:all .2s;}
+  #tour-box h4{font-size:13px;color:var(--accent);margin-bottom:6px;}
+  #tour-box p{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:10px;}
+  #tour-box .trow{display:flex;justify-content:space-between;align-items:center;}
+  #tour-box .tprog{font-size:11px;color:var(--text3);}
+  #tour-box .tbtns{display:flex;gap:6px;}
+  #tour-box button{font-size:11px;padding:5px 10px;border-radius:4px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;}
+  #tour-box button.pri{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600;}
   body.focus-mode #sidebar{width:0;border-left:none;}
   ::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
 </style>
 </head>
-<body data-theme="light">
+<body data-theme="dark">
 
 <!-- API KEY MODAL -->
 <div id="api-modal" class="modal-bg">
@@ -163,6 +192,44 @@
   </div>
 </div>
 
+<!-- GUIDE MODAL -->
+<div id="guide-modal" class="modal-bg hide">
+  <div class="mbox">
+    <h2>Guide</h2>
+    <p>What everything does, in one place.</p>
+
+    <div class="guide-section">
+      <h3>Getting started</h3>
+      <div class="guide-row"><b>API Key</b><span>Paste an OpenRouter key so Check can call an AI model. Stored only in your browser.</span></div>
+      <div class="guide-row"><b>Model dropdown</b><span>4 curated picks (2 free, 2 paid) fetched live from OpenRouter, plus "Custom model…" to type any model ID yourself.</span></div>
+    </div>
+
+    <div class="guide-section">
+      <h3>Checking</h3>
+      <div class="guide-row"><b>Auto</b><span>Checks your text automatically as you pause typing.</span></div>
+      <div class="guide-row"><b>Check</b><span>Runs a check right now (Ctrl+Enter).</span></div>
+      <div class="guide-row"><b>Clear</b><span>Removes all highlight marks.</span></div>
+      <div class="guide-row"><b>Focus</b><span>Hides extra panels for distraction-free editing.</span></div>
+      <div class="guide-row"><b>Font / size</b><span>Change editor typeface and text size.</span></div>
+    </div>
+
+    <div class="guide-section">
+      <h3>Issues panel</h3>
+      <div class="guide-row"><b>Filter tabs</b><span>Narrow flagged issues by type: Grammar, Spelling, Punctuation, Style, Word Order.</span></div>
+      <div class="guide-row"><b>Click a highlight</b><span>Shows the suggested fix — click to apply it.</span></div>
+    </div>
+
+    <div class="guide-section">
+      <h3>Data</h3>
+      <div class="guide-row"><b>Export</b><span>Save as .txt, .md, .html, or Word (paste method).</span></div>
+      <div class="guide-row"><b>Restore icon</b><span>Bottom-right corner. Recovers your last autosaved draft if the tab closed unexpectedly.</span></div>
+      <div class="guide-row"><b>Theme</b><span>Switch dark/light. Your choice is remembered.</span></div>
+    </div>
+
+    <button class="mbtn sec" onclick="closeGuide()">Close</button>
+  </div>
+</div>
+
 <div id="tip"></div>
 
 <!-- RESTORE BANNER -->
@@ -170,6 +237,35 @@
   <span>📄 Unsaved draft found from your last session.</span>
   <button onclick="restoreDraft()">Restore</button>
   <button class="dbtn" onclick="document.getElementById('restore-bar').classList.add('hide')">Dismiss</button>
+</div>
+
+<!-- FLOATING RESTORE BUTTON -->
+<button id="float-restore" onclick="toggleFloatRestore()" title="Restore last saved session">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+</button>
+<div id="float-restore-panel" class="hide">
+  <h4>Restore last session</h4>
+  <p id="float-restore-desc">Loads the last autosaved draft into the editor, overwriting what's there now.</p>
+  <div class="mrow">
+    <button onclick="toggleFloatRestore()">Cancel</button>
+    <button class="pri" onclick="restoreDraft(); toggleFloatRestore();">Restore</button>
+  </div>
+</div>
+
+<!-- FIRST-VISIT TOUR -->
+<div id="tour-overlay" class="hide">
+  <div id="tour-highlight"></div>
+  <div id="tour-box">
+    <h4 id="tour-title"></h4>
+    <p id="tour-text"></p>
+    <div class="trow">
+      <span class="tprog" id="tour-progress"></span>
+      <div class="tbtns">
+        <button onclick="endTour()">Skip</button>
+        <button class="pri" id="tour-next" onclick="tourNext()">Next</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- TOOLBAR -->
@@ -213,6 +309,9 @@
   </button>
   <button class="tb-btn" onclick="document.getElementById('exp-modal').classList.remove('hide')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export
+  </button>
+  <button class="tb-btn" onclick="openGuide()" title="Guide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Guide
   </button>
   <div id="status-area">
     <span id="save-dot" title="Autosave"></span>
@@ -260,47 +359,51 @@ const ed=document.getElementById('editor');
 const hl=document.getElementById('hlayer');
 const tip=document.getElementById('tip');
 
-// ===== MODEL LIST — probed live against OpenRouter; only models that
-// actually respond successfully right now are offered. =====
-const FREE_CANDIDATES=[
-  {id:'meta-llama/llama-3.3-70b-instruct:free',name:'Llama 3.3 70B'},
-  {id:'google/gemini-2.0-flash-exp:free',name:'Gemini 2.0 Flash'},
-  {id:'deepseek/deepseek-chat:free',name:'DeepSeek Chat'},
-  {id:'deepseek/deepseek-r1:free',name:'DeepSeek R1'},
-  {id:'qwen/qwen-2.5-72b-instruct:free',name:'Qwen 2.5 72B'},
-  {id:'mistralai/mistral-small-3.1-24b-instruct:free',name:'Mistral Small 3.1'},
-  {id:'meta-llama/llama-4-scout:free',name:'Llama 4 Scout'},
-  {id:'nvidia/llama-3.1-nemotron-70b-instruct:free',name:'Nemotron 70B'}
+// ===== MODEL LIST — fetched live from OpenRouter's /models endpoint.
+// No hardcoded model IDs: the free-tier lineup rotates constantly,
+// so we always ask OpenRouter what's actually available right now. =====
+const HARDCODED_FALLBACK=[
+  {id:'openai/gpt-oss-120b:free',name:'GPT-OSS 120B (free)'},
+  {id:'meta-llama/llama-3.3-70b-instruct:free',name:'Llama 3.3 70B (free)'},
+  {id:'openai/gpt-4o-mini',name:'GPT-4o Mini (cheap)'},
+  {id:'anthropic/claude-3.5-haiku',name:'Claude 3.5 Haiku (reliable)'}
 ];
-const PAID_CANDIDATES=[
-  {id:'openai/gpt-4o-mini',name:'GPT-4o Mini'},
-  {id:'google/gemini-2.5-flash',name:'Gemini 2.5 Flash'},
-  {id:'anthropic/claude-3.5-haiku',name:'Claude 3.5 Haiku'}
-];
-async function probeModel(id){
-  try{
-    const r=await fetch('https://openrouter.ai/api/v1/chat/completions',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey,'HTTP-Referer':'https://023b.github.io/grammar-checker','X-Title':'Proofread'},
-      body:JSON.stringify({model:id, messages:[{role:'user',content:'hi'}], max_tokens:1})
-    });
-    return r.ok;
-  }catch(e){ return false; }
-}
+const STRONG_PROVIDERS=['openai','anthropic','google','meta-llama','nvidia','qwen','deepseek','mistralai','tencent'];
 async function loadModelList(){
   const sel=document.getElementById('mdl-sel');
   const savedModel=ls('gc_model')||'';
   sel.innerHTML='<option value="">Loading models…</option>';
-  if(!apiKey){
-    populateModelSelect(FREE_CANDIDATES.slice(0,5), savedModel);
-    return;
+  let models=[];
+  try{
+    const r=await fetch('https://openrouter.ai/api/v1/models');
+    if(!r.ok) throw new Error('bad status');
+    const data=await r.json();
+    const all=(data.data||[]).filter(m=>!m.id.startsWith('openrouter/'));
+    const free=all.filter(m=>{
+      const p=m.pricing||{};
+      return m.id.endsWith(':free') || (parseFloat(p.prompt||'1')===0 && parseFloat(p.completion||'1')===0);
+    });
+    const paid=all.filter(m=>{
+      const p=m.pricing||{};
+      return !m.id.endsWith(':free') && parseFloat(p.prompt||'0')>0;
+    }).sort((a,b)=>parseFloat(a.pricing.prompt)-parseFloat(b.pricing.prompt));
+
+    const freeStrong=free.filter(m=>STRONG_PROVIDERS.includes(m.id.split('/')[0]));
+    const bestFree=(freeStrong.length?freeStrong:free).sort((a,b)=>(b.context_length||0)-(a.context_length||0))[0];
+    const secondFree=free.find(m=>m.id!==bestFree?.id && STRONG_PROVIDERS.includes(m.id.split('/')[0])) || free.find(m=>m.id!==bestFree?.id);
+
+    const preferredCheap=['openai/gpt-4o-mini','google/gemini-2.5-flash','deepseek/deepseek-chat'];
+    const cheapPaid=paid.find(m=>preferredCheap.includes(m.id)) || paid[0];
+
+    const preferredStrong=['anthropic/claude-3.5-haiku','openai/gpt-4o','google/gemini-2.5-flash'];
+    const strongPaid=paid.find(m=>preferredStrong.includes(m.id) && m.id!==cheapPaid?.id) || paid.find(m=>m.id!==cheapPaid?.id);
+
+    const picks=[bestFree, secondFree, cheapPaid, strongPaid].filter(Boolean);
+    models=picks.map(m=>({id:m.id, name:m.name+(m.id.endsWith(':free')?' (free)':'')}));
+    if(!models.length) throw new Error('empty');
+  }catch(e){
+    models=HARDCODED_FALLBACK;
   }
-  const results=await Promise.all([...FREE_CANDIDATES, ...PAID_CANDIDATES].map(async m=>({...m, ok:await probeModel(m.id)})));
-  let free=results.filter((m,i)=>m.ok && i<FREE_CANDIDATES.length).slice(0,4);
-  let paid=results.filter((m,i)=>m.ok && i>=FREE_CANDIDATES.length).slice(0,3);
-  free=free.map(m=>({...m,name:m.name+' (free)'}));
-  const models=[...free, ...paid];
-  if(!models.length){ setSt('No models responded — try Custom model'); }
   populateModelSelect(models, savedModel);
 }
 function populateModelSelect(models, savedModel){
@@ -348,16 +451,16 @@ function getActiveModel(){
 
 // ===== INIT =====
 window.addEventListener('DOMContentLoaded',()=>{
-  const savedTheme=ls('gc_theme');
-  if(savedTheme==='dark'){
-    document.body.setAttribute('data-theme','dark');
-    document.getElementById('thm-btn').innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>Light';
+  const savedTheme=ls('gc_theme')||'dark';
+  document.body.setAttribute('data-theme',savedTheme);
+  if(savedTheme==='light'){
+    document.getElementById('thm-btn').innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>Dark';
   }
   loadModelList();
   const draft=ls('draft');
   if(draft&&draft.trim()) document.getElementById('restore-bar').classList.remove('hide');
   if(!apiKey) document.getElementById('api-modal').classList.remove('hide');
-  else{setSt('Ready');updKeyBtn();}
+  else{setSt('Ready');updKeyBtn();maybeStartTour();}
   ed.addEventListener('input',onInput);
   ed.addEventListener('keydown',onKD);
   ed.addEventListener('scroll',()=>{ hl.style.marginTop=(-ed.scrollTop)+'px'; });
@@ -383,6 +486,69 @@ function flashDot(){
 function restoreDraft(){
   const s=ls('draft');
   if(s){ed.value=s;resize();updWC();document.getElementById('restore-bar').classList.add('hide');setSt('Draft restored');}
+}
+function toggleFloatRestore(){
+  const panel=document.getElementById('float-restore-panel');
+  const opening=panel.classList.contains('hide');
+  panel.classList.toggle('hide');
+  if(opening){
+    const s=ls('draft');
+    const desc=document.getElementById('float-restore-desc');
+    const btn=panel.querySelector('.pri');
+    if(s && s.trim()){
+      desc.textContent='Loads the last autosaved draft into the editor, overwriting what\'s there now.';
+      btn.disabled=false; btn.style.opacity=1;
+    }else{
+      desc.textContent='No saved draft found yet — this fills in once you start writing.';
+      btn.disabled=true; btn.style.opacity=0.4;
+    }
+  }
+}
+function openGuide(){ document.getElementById('guide-modal').classList.remove('hide'); }
+function closeGuide(){ document.getElementById('guide-modal').classList.add('hide'); }
+
+// ===== FIRST-VISIT TOUR =====
+const TOUR_STEPS=[
+  {sel:'#key-btn', title:'1. Connect OpenRouter', text:'Paste a free OpenRouter API key here so Check can reach an AI model.'},
+  {sel:'#mdl-sel', title:'2. Pick a model', text:'4 live-fetched options — 2 free, 2 paid — or choose "Custom model…" to type any OpenRouter model ID.'},
+  {sel:'#btn-auto', title:'3. Auto-check', text:'Checks your writing automatically as you pause. Toggle off if you prefer manual control.'},
+  {sel:'#thm-btn', title:'4. Theme', text:'Switch dark/light anytime. Your pick is remembered.'},
+];
+let tourIdx=0;
+function startTour(){
+  tourIdx=0;
+  document.getElementById('tour-overlay').classList.remove('hide');
+  showTourStep();
+}
+function showTourStep(){
+  const step=TOUR_STEPS[tourIdx];
+  const target=document.querySelector(step.sel);
+  const box=document.getElementById('tour-box');
+  if(!target){ endTour(); return; }
+  const r=target.getBoundingClientRect();
+  document.getElementById('tour-title').textContent=step.title;
+  document.getElementById('tour-text').textContent=step.text;
+  document.getElementById('tour-progress').textContent=(tourIdx+1)+' / '+TOUR_STEPS.length;
+  document.getElementById('tour-next').textContent = tourIdx===TOUR_STEPS.length-1 ? 'Done' : 'Next';
+  const hl=document.getElementById('tour-highlight');
+  hl.style.top=(r.top-4)+'px'; hl.style.left=(r.left-4)+'px';
+  hl.style.width=(r.width+8)+'px'; hl.style.height=(r.height+8)+'px';
+  let top=r.bottom+12;
+  if(top+140>window.innerHeight) top=Math.max(12, r.top-152);
+  let left=Math.min(Math.max(12, r.left), window.innerWidth-296);
+  box.style.top=top+'px'; box.style.left=left+'px';
+}
+function tourNext(){
+  tourIdx++;
+  if(tourIdx>=TOUR_STEPS.length){ endTour(); return; }
+  showTourStep();
+}
+function endTour(){
+  document.getElementById('tour-overlay').classList.add('hide');
+  sv('gc_tour_done','1');
+}
+function maybeStartTour(){
+  if(!ls('gc_tour_done')) setTimeout(startTour, 300);
 }
 window.addEventListener('beforeunload',()=>{ if(ed.value.trim()) sv('draft',ed.value); });
 window.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='hidden'&&ed.value.trim()) sv('draft',ed.value); });
@@ -434,10 +600,10 @@ function saveKey(){
   if(!v||!v.startsWith('sk-')){alert('Enter a valid OpenRouter key (starts with sk-)');return;}
   apiKey=v;sv('or_api_key',v);
   document.getElementById('api-modal').classList.add('hide');
-  setSt('Verifying available models…');updKeyBtn();
-  loadModelList().then(()=>setSt('Ready'));
+  setSt('Ready');updKeyBtn();
+  maybeStartTour();
 }
-function skipKey(){document.getElementById('api-modal').classList.add('hide');}
+function skipKey(){document.getElementById('api-modal').classList.add('hide');maybeStartTour();}
 function showKeyModal(){document.getElementById('api-in').value=apiKey||'';document.getElementById('api-modal').classList.remove('hide');document.getElementById('api-in').focus();}
 function updKeyBtn(){const b=document.getElementById('key-btn');if(apiKey){b.style.color='var(--accent)';b.title='Key set — click to change';}else b.style.color='';}
 
